@@ -1,0 +1,19 @@
+{
+  "name": "my-fullstack-js-network",
+  "version": "1.0.0",
+  "description": "\u0016A fullstack javascript social network",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/orYoffe/myFullstackJsNetwork.git"
+  },
+  "author": "Or Yoffe <ragiop07@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/orYoffe/myFullstackJsNetwork/issues"
+  },
+  "homepage": "https://github.com/orYoffe/myFullstackJsNetwork#readme"
+}
