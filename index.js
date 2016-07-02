@@ -6,7 +6,7 @@
 
 var initHelpers = require('./config/initHelpers');
 var app = require('./app');
-var debug = require('debug')('myapp:server');
+var debug = require('debug')('myFullstackJsNetwork:server');
 var http = require('http');
 
 /**
