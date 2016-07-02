@@ -1,10 +1,12 @@
 {
   "name": "my-fullstack-js-network",
-  "version": "1.0.0",
+  "version": "0.0.0",
+  "private": true,
   "description": "\u0016A fullstack javascript social network",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,14 @@
   "bugs": {
     "url": "https://github.com/orYoffe/myFullstackJsNetwork/issues"
   },
-  "homepage": "https://github.com/orYoffe/myFullstackJsNetwork#readme"
+  "homepage": "https://github.com/orYoffe/myFullstackJsNetwork#readme",
+  "dependencies": {
+      "body-parser": "~1.15.1",
+      "cookie-parser": "~1.4.3",
+      "debug": "~2.2.0",
+      "express": "~4.13.4",
+      "jade": "~1.11.0",
+      "morgan": "~1.7.0",
+      "serve-favicon": "~2.3.0"
+  }
 }
