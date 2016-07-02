@@ -22,11 +22,27 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
 /**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port);
-console.log('server listening on port ' + port);
+var host = server.address().address;
+var port = server.address().port;
+
+console.log("server listening at http://%s:%s", host, port);
 server.on('error', initHelpers.onError);
-server.on('listening', initHelpers.onListening);
+server.on('listening', onListening);

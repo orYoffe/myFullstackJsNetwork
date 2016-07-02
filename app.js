@@ -21,7 +21,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('*', function timeLog(req, res, next) {
+  console.log('Time: ', new Date(Date.now()).toUTCString());
+  next();
+});
 app.use('/', routes);
 app.use('/users', users);
 
