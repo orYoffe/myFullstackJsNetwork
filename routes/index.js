@@ -26,17 +26,7 @@ module.exports = router;
 
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
-mongoose.connect('localhost:27017/test');
-var Schema = mongoose.Schema;
-
-var userDataSchema = new Schema({
-  title: {type: String, required: true},
-  content: String,
-  author: String
-}, {collection: 'user-data'});
-
-var UserData = mongoose.model('UserData', userDataSchema);
+var UserData = require('../models/UserData');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -58,7 +48,10 @@ router.post('/insert', function(req, res, next) {
   };
 
   var data = new UserData(item);
-  data.save();
+  data.save(function (err) {
+    if (err) console.error('error, no entry found');;
+    // saved!
+  });
 
   res.redirect('/');
 });
@@ -73,7 +66,10 @@ router.post('/update', function(req, res, next) {
     doc.title = req.body.title;
     doc.content = req.body.content;
     doc.author = req.body.author;
-    doc.save();
+    doc.save(function (err) {
+      if (err) console.error('error, no entry found');;
+      // saved!
+    });;
   })
   res.redirect('/');
 });

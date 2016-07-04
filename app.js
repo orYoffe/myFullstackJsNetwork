@@ -7,12 +7,18 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var validator = require('express-validator');
 var hbs = require('express-handlebars');
+var config = require('./config');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var auth = require('./routes/auth');
 
 var app = express();
-
+var mongoose = require('mongoose');
+mongoose.connect(config.database);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', console.error.bind(console, 'Connected to the db'));
 
 // view engine setup
 app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __dirname + '/views/layouts/'}));
@@ -32,7 +38,7 @@ app.use(validator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 // TODO the session is saved to memory and not to the DB - so change this
-app.use(session({secret:'change_this_secret', setUninitialized: false, resave: false}));
+// app.use(session({secret: config.secret, setUninitialized: false, resave: false}));
 
 app.use('*', function timeLog(req, res, next) {
   console.log('Time: ', new Date(Date.now()).toUTCString());
@@ -40,6 +46,7 @@ app.use('*', function timeLog(req, res, next) {
 });
 app.use('/', routes);
 app.use('/users', users);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
