@@ -80,50 +80,37 @@ router.post('/authenticate', authenticateUser);
 router.use(authenticateMiddleware);
 
 
-// route to show a random message (GET http://localhost:8080/api/)
 router.get('/', function(req, res) {
   res.json({ message: 'Welcome to the coolest API on earth!' });
 });
 
-// route to return all users (GET http://localhost:8080/api/users)
 router.get('/users', function(req, res) {
   Users.find({}, function(err, users) {
+    if(err) console.error('No users were found');
     res.json(users);
   });
 });
 
 
 function authenticateUser(req, res) {
-  // find the user
   Users.findOne({
     name: req.body.name
   }, function(err, user) {
-
     if (err) throw err;
-
     if (!user) {
       res.json({ success: false, message: 'Authentication failed. User not found.' });
     } else if (user) {
-
-      // check if password matches
       if (user.password != req.body.password) {
         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
-
-        // if user is found and password is right
-        // create a token
         var token = createToken(user);
-
-        // return the information including token as JSON
         res.json({
           success: true,
           message: 'Enjoy your token!',
           token: token
         });
       }
-
     }
-
   });
 }
 
@@ -140,22 +127,16 @@ function authenticateMiddleware(req, res, next) {
 
   // decode token
   if (token) {
-
-    // verifies secret and checks exp
     jwt.verify(token, config.getSecret(), function(err, decoded) {
       if (err) {
         return res.json({ success: false, message: 'Failed to authenticate token.' });
       } else {
-        // if everything is good, save to request for use in other routes
         req.decoded = decoded;
         next();
       }
     });
 
   } else {
-
-    // if there is no token
-    // return an error
     return res.status(403).send({
         success: false,
         message: 'No token provided.'
