@@ -6,7 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ./index.js"
+    "start": "nodemon ./index.js",
+    "mongo": "cd /c/MongoDB/Server/3.2/bin && ./mongod"
   },
   "repository": {
     "type": "git",
@@ -31,5 +32,8 @@
     "mongoose": "^4.5.3",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.9.2"
   }
 }
