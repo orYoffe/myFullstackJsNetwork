@@ -35,7 +35,8 @@ app.use('*', function timeLog(req, res, next) {
   console.log('Time: ', new Date(Date.now()).toUTCString());
   next();
 });
-app.use('/', routes);
+
+// app.use('/', routes);
 app.use('/users', users);
 app.use('/auth', auth);
 
