@@ -3,6 +3,7 @@ var srcPath = path.join(__dirname, 'src');
 var buildPath = path.join(__dirname, 'public');
 const webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
   context: srcPath,
@@ -44,6 +45,13 @@ module.exports = {
     includePaths: [path.resolve(__dirname, "src/sass")]
   },
   plugins: [
+    new BrowserSyncPlugin({
+      // browse to http://localhost:8000/ during development,
+      // ./public directory is being served
+      host: 'localhost',
+      port: 8000,
+      server: { baseDir: ['public'] }
+    }),
     new ExtractTextPlugin("styles.css",{allChunks: true})
   //     new webpack.optimize.UglifyJsPlugin({
   //         compress: {
