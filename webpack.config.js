@@ -13,6 +13,9 @@ module.exports = {
       publicPath: buildPath
   },
   module: {
+    preLoaders: [
+      {test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/}
+    ],
       loaders: [
 
         {
@@ -25,6 +28,7 @@ module.exports = {
             loader: ExtractTextPlugin.extract('style-loader',
  'css-loader?sourceMap!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true')
         },
+      {test: /\.js$/, loaders: [ "babel-loader", "eslint-loader" ], exclude:  /(node_modules|bower_components)/},
           {
             test: /\.jsx?$/,
             exclude: /(node_modules|bower_components)/,
