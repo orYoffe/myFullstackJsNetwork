@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///webpack:///sass/index.scss"],"names":[],"mappings":"AAAA;EACE,kBAAkB;CACnB","file":"styles.css","sourcesContent":["body {\r\n  background: green;\r\n}\r\n\n\n\n/** WEBPACK FOOTER **\n ** webpack:///sass/index.scss\n **/"],"sourceRoot":""}
