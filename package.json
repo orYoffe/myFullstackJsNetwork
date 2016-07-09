@@ -6,11 +6,11 @@
   "main": "index.js",
   "scripts": {
     "mongo": "cd /c/MongoDB/Server/3.2/bin && ./mongod",
-    "webpack": "webpack --watch",
-    "start": "webpack && nodemon ./app/src/index.js --exec babel-node --presets es2015,stage-2",
+    "webpack": "webpack --progress --watch",
+    "start": "webpack --progress && nodemon ./app/src/index.js --exec babel-node --presets es2015,stage-2",
     "build": "babel ./app/src -d ./app/dist",
     "serve": "node ./app/dist/index.js",
-    "deploy": "webpack && babel ./app/src -d ./app/dist && node ./dist/index.js",
+    "deploy": "webpack --progress && npm run build && nodemon ./app/dist/index.js",
     "test": "mocha --compilers js:babel-register"
   },
   "repository": {
@@ -33,10 +33,11 @@
     "jsonwebtoken": "^7.0.1",
     "mongoose": "^4.5.3",
     "morgan": "~1.7.0",
-    "serve-favicon": "~2.3.0",
+    "nodemon": "^1.9.2",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
-    "nodemon": "^1.9.2"
+    "react-router": "^2.5.2",
+    "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -55,6 +56,7 @@
     "mocha": "^2.5.3",
     "node-sass": "^3.8.0",
     "react-redux": "^4.4.5",
+    "react-router": "^2.5.2",
     "react-router-redux": "^4.0.5",
     "redux": "^3.5.2",
     "sass-loader": "^4.0.0",

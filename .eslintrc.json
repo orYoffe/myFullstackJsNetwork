@@ -1,13 +1,14 @@
 {
   "root": true,
   "rules": {
-    "semi": ["error", "always"]
+    "semi": ["off", "always"]
   },
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
+      "jsx": true,
+      "experimentalObjectRestSpread": true
     }
   }
 }
