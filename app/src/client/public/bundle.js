@@ -67,30 +67,24 @@
 	
 	var _routes2 = _interopRequireDefault(_routes);
 	
-	var _index = __webpack_require__(/*! ./js/reducers/index */ 551);
+	var _reactRouter = __webpack_require__(/*! react-router */ 492);
 	
-	var _index2 = _interopRequireDefault(_index);
+	var _reactRouterRedux = __webpack_require__(/*! react-router-redux */ 552);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 491);
+	var _store = __webpack_require__(/*! ./store */ 557);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	// import {history} from 'history'
 	
 	// Grab the state from a global injected into server-generated HTML
 	var initialState = window.__INITIAL_STATE__;
 	
 	// Create Redux store with initial state
-	var store = (0, _redux.createStore)(_index2.default, initialState, window.devToolsExtension && window.devToolsExtension());
+	// const store = createStore(reducers, initialState, window.devToolsExtension && window.devToolsExtension());
 	
-	// match({ history, routes }, (error, redirectLocation, renderProps) => {
-	//   render(
-	//     <Provider store={store}>
-	//       <Router {...renderProps} />
-	//     </Provider>,
-	//     document.getElementById('root')
-	//   )
-	// });
+	// import reducers from './js/reducers/index';
+	var store = (0, _store.configureStore)(_reactRouter.browserHistory, initialState);
+	
+	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store);
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: store },
@@ -31996,7 +31990,7 @@
   \*****************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(__dirname) {'use strict';
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -32006,25 +32000,80 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _index = __webpack_require__(/*! ./containers/index.jsx */ 562);
+	var _index = __webpack_require__(/*! ./containers/index.jsx */ 491);
 	
-	var _reactRouter = __webpack_require__(/*! react-router */ 491);
+	var _reactRouter = __webpack_require__(/*! react-router */ 492);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	console.log('____dirname', __dirname);
 	var routes = _react2.default.createElement(
 	  _reactRouter.Route,
 	  { path: '/', component: _index.index },
-	  _react2.default.createElement(_reactRouter.Route, { path: 'about', component: _index.About }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/about', component: _index.About }),
 	  _react2.default.createElement(_reactRouter.Route, { path: '*', component: _index.NoMatch })
 	);
 	
 	exports.default = routes;
-	/* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ },
 /* 491 */
+/*!****************************************!*\
+  !*** ./client/js/containers/index.jsx ***!
+  \****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.index = exports.NoMatch = exports.About = undefined;
+	
+	var _react = __webpack_require__(/*! react */ 300);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 492);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var About = exports.About = function About(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    'about'
+	  );
+	};
+	
+	var NoMatch = exports.NoMatch = function NoMatch(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    'no match'
+	  );
+	};
+	
+	var index = exports.index = function index(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/about' },
+	      'about'
+	    ),
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/' },
+	      'app'
+	    ),
+	    props.children
+	  );
+	};
+	exports.default = { index: index, NoMatch: NoMatch, About: About };
+
+/***/ },
+/* 492 */
 /*!*****************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/index.js ***!
   \*****************************************************************************************/
@@ -32035,7 +32084,7 @@
 	exports.__esModule = true;
 	exports.createMemoryHistory = exports.hashHistory = exports.browserHistory = exports.applyRouterMiddleware = exports.formatPattern = exports.useRouterHistory = exports.match = exports.routerShape = exports.locationShape = exports.PropTypes = exports.RoutingContext = exports.RouterContext = exports.createRoutes = exports.useRoutes = exports.RouteContext = exports.Lifecycle = exports.History = exports.Route = exports.Redirect = exports.IndexRoute = exports.IndexRedirect = exports.withRouter = exports.IndexLink = exports.Link = exports.Router = undefined;
 	
-	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 492);
+	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 493);
 	
 	Object.defineProperty(exports, 'createRoutes', {
 	  enumerable: true,
@@ -32044,7 +32093,7 @@
 	  }
 	});
 	
-	var _PropTypes2 = __webpack_require__(/*! ./PropTypes */ 493);
+	var _PropTypes2 = __webpack_require__(/*! ./PropTypes */ 494);
 	
 	Object.defineProperty(exports, 'locationShape', {
 	  enumerable: true,
@@ -32059,7 +32108,7 @@
 	  }
 	});
 	
-	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 498);
+	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 499);
 	
 	Object.defineProperty(exports, 'formatPattern', {
 	  enumerable: true,
@@ -32068,85 +32117,85 @@
 	  }
 	});
 	
-	var _Router2 = __webpack_require__(/*! ./Router */ 499);
+	var _Router2 = __webpack_require__(/*! ./Router */ 500);
 	
 	var _Router3 = _interopRequireDefault(_Router2);
 	
-	var _Link2 = __webpack_require__(/*! ./Link */ 529);
+	var _Link2 = __webpack_require__(/*! ./Link */ 530);
 	
 	var _Link3 = _interopRequireDefault(_Link2);
 	
-	var _IndexLink2 = __webpack_require__(/*! ./IndexLink */ 530);
+	var _IndexLink2 = __webpack_require__(/*! ./IndexLink */ 531);
 	
 	var _IndexLink3 = _interopRequireDefault(_IndexLink2);
 	
-	var _withRouter2 = __webpack_require__(/*! ./withRouter */ 531);
+	var _withRouter2 = __webpack_require__(/*! ./withRouter */ 532);
 	
 	var _withRouter3 = _interopRequireDefault(_withRouter2);
 	
-	var _IndexRedirect2 = __webpack_require__(/*! ./IndexRedirect */ 532);
+	var _IndexRedirect2 = __webpack_require__(/*! ./IndexRedirect */ 533);
 	
 	var _IndexRedirect3 = _interopRequireDefault(_IndexRedirect2);
 	
-	var _IndexRoute2 = __webpack_require__(/*! ./IndexRoute */ 534);
+	var _IndexRoute2 = __webpack_require__(/*! ./IndexRoute */ 535);
 	
 	var _IndexRoute3 = _interopRequireDefault(_IndexRoute2);
 	
-	var _Redirect2 = __webpack_require__(/*! ./Redirect */ 533);
+	var _Redirect2 = __webpack_require__(/*! ./Redirect */ 534);
 	
 	var _Redirect3 = _interopRequireDefault(_Redirect2);
 	
-	var _Route2 = __webpack_require__(/*! ./Route */ 535);
+	var _Route2 = __webpack_require__(/*! ./Route */ 536);
 	
 	var _Route3 = _interopRequireDefault(_Route2);
 	
-	var _History2 = __webpack_require__(/*! ./History */ 536);
+	var _History2 = __webpack_require__(/*! ./History */ 537);
 	
 	var _History3 = _interopRequireDefault(_History2);
 	
-	var _Lifecycle2 = __webpack_require__(/*! ./Lifecycle */ 537);
+	var _Lifecycle2 = __webpack_require__(/*! ./Lifecycle */ 538);
 	
 	var _Lifecycle3 = _interopRequireDefault(_Lifecycle2);
 	
-	var _RouteContext2 = __webpack_require__(/*! ./RouteContext */ 538);
+	var _RouteContext2 = __webpack_require__(/*! ./RouteContext */ 539);
 	
 	var _RouteContext3 = _interopRequireDefault(_RouteContext2);
 	
-	var _useRoutes2 = __webpack_require__(/*! ./useRoutes */ 539);
+	var _useRoutes2 = __webpack_require__(/*! ./useRoutes */ 540);
 	
 	var _useRoutes3 = _interopRequireDefault(_useRoutes2);
 	
-	var _RouterContext2 = __webpack_require__(/*! ./RouterContext */ 526);
+	var _RouterContext2 = __webpack_require__(/*! ./RouterContext */ 527);
 	
 	var _RouterContext3 = _interopRequireDefault(_RouterContext2);
 	
-	var _RoutingContext2 = __webpack_require__(/*! ./RoutingContext */ 540);
+	var _RoutingContext2 = __webpack_require__(/*! ./RoutingContext */ 541);
 	
 	var _RoutingContext3 = _interopRequireDefault(_RoutingContext2);
 	
 	var _PropTypes3 = _interopRequireDefault(_PropTypes2);
 	
-	var _match2 = __webpack_require__(/*! ./match */ 541);
+	var _match2 = __webpack_require__(/*! ./match */ 542);
 	
 	var _match3 = _interopRequireDefault(_match2);
 	
-	var _useRouterHistory2 = __webpack_require__(/*! ./useRouterHistory */ 545);
+	var _useRouterHistory2 = __webpack_require__(/*! ./useRouterHistory */ 546);
 	
 	var _useRouterHistory3 = _interopRequireDefault(_useRouterHistory2);
 	
-	var _applyRouterMiddleware2 = __webpack_require__(/*! ./applyRouterMiddleware */ 546);
+	var _applyRouterMiddleware2 = __webpack_require__(/*! ./applyRouterMiddleware */ 547);
 	
 	var _applyRouterMiddleware3 = _interopRequireDefault(_applyRouterMiddleware2);
 	
-	var _browserHistory2 = __webpack_require__(/*! ./browserHistory */ 547);
+	var _browserHistory2 = __webpack_require__(/*! ./browserHistory */ 548);
 	
 	var _browserHistory3 = _interopRequireDefault(_browserHistory2);
 	
-	var _hashHistory2 = __webpack_require__(/*! ./hashHistory */ 550);
+	var _hashHistory2 = __webpack_require__(/*! ./hashHistory */ 551);
 	
 	var _hashHistory3 = _interopRequireDefault(_hashHistory2);
 	
-	var _createMemoryHistory2 = __webpack_require__(/*! ./createMemoryHistory */ 542);
+	var _createMemoryHistory2 = __webpack_require__(/*! ./createMemoryHistory */ 543);
 	
 	var _createMemoryHistory3 = _interopRequireDefault(_createMemoryHistory2);
 	
@@ -32188,7 +32237,7 @@
 	exports.createMemoryHistory = _createMemoryHistory3.default;
 
 /***/ },
-/* 492 */
+/* 493 */
 /*!**********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/RouteUtils.js ***!
   \**********************************************************************************************/
@@ -32289,7 +32338,7 @@
 	}
 
 /***/ },
-/* 493 */
+/* 494 */
 /*!*********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/PropTypes.js ***!
   \*********************************************************************************************/
@@ -32302,15 +32351,15 @@
 	
 	var _react = __webpack_require__(/*! react */ 300);
 	
-	var _deprecateObjectProperties = __webpack_require__(/*! ./deprecateObjectProperties */ 494);
+	var _deprecateObjectProperties = __webpack_require__(/*! ./deprecateObjectProperties */ 495);
 	
 	var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 	
-	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 497);
+	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 498);
 	
 	var InternalPropTypes = _interopRequireWildcard(_InternalPropTypes);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -32399,7 +32448,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 494 */
+/* 495 */
 /*!*************************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/deprecateObjectProperties.js ***!
   \*************************************************************************************************************/
@@ -32410,7 +32459,7 @@
 	exports.__esModule = true;
 	exports.canUseMembrane = undefined;
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -32483,7 +32532,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 495 */
+/* 496 */
 /*!*************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/routerWarning.js ***!
   \*************************************************************************************************/
@@ -32495,7 +32544,7 @@
 	exports.default = routerWarning;
 	exports._resetWarned = _resetWarned;
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -32527,7 +32576,7 @@
 	}
 
 /***/ },
-/* 496 */
+/* 497 */
 /*!**********************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/warning/browser.js ***!
   \**********************************************************************************/
@@ -32597,7 +32646,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 497 */
+/* 498 */
 /*!*****************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/InternalPropTypes.js ***!
   \*****************************************************************************************************/
@@ -32637,7 +32686,7 @@
 	var routes = exports.routes = oneOfType([route, arrayOf(route)]);
 
 /***/ },
-/* 498 */
+/* 499 */
 /*!************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/PatternUtils.js ***!
   \************************************************************************************************/
@@ -32858,7 +32907,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 499 */
+/* 500 */
 /*!******************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/Router.js ***!
   \******************************************************************************************/
@@ -32870,11 +32919,11 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _createHashHistory = __webpack_require__(/*! history/lib/createHashHistory */ 500);
+	var _createHashHistory = __webpack_require__(/*! history/lib/createHashHistory */ 501);
 	
 	var _createHashHistory2 = _interopRequireDefault(_createHashHistory);
 	
-	var _useQueries = __webpack_require__(/*! history/lib/useQueries */ 515);
+	var _useQueries = __webpack_require__(/*! history/lib/useQueries */ 516);
 	
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 	
@@ -32886,21 +32935,21 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _createTransitionManager = __webpack_require__(/*! ./createTransitionManager */ 518);
+	var _createTransitionManager = __webpack_require__(/*! ./createTransitionManager */ 519);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 497);
+	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 498);
 	
-	var _RouterContext = __webpack_require__(/*! ./RouterContext */ 526);
+	var _RouterContext = __webpack_require__(/*! ./RouterContext */ 527);
 	
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 	
-	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 492);
+	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 493);
 	
-	var _RouterUtils = __webpack_require__(/*! ./RouterUtils */ 528);
+	var _RouterUtils = __webpack_require__(/*! ./RouterUtils */ 529);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -33087,7 +33136,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 500 */
+/* 501 */
 /*!************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/createHashHistory.js ***!
   \************************************************************************************************/
@@ -33101,7 +33150,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -33109,17 +33158,17 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _Actions = __webpack_require__(/*! ./Actions */ 501);
+	var _Actions = __webpack_require__(/*! ./Actions */ 502);
 	
-	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 502);
+	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 503);
 	
-	var _ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 503);
+	var _ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 504);
 	
-	var _DOMUtils = __webpack_require__(/*! ./DOMUtils */ 504);
+	var _DOMUtils = __webpack_require__(/*! ./DOMUtils */ 505);
 	
-	var _DOMStateStorage = __webpack_require__(/*! ./DOMStateStorage */ 505);
+	var _DOMStateStorage = __webpack_require__(/*! ./DOMStateStorage */ 506);
 	
-	var _createDOMHistory = __webpack_require__(/*! ./createDOMHistory */ 506);
+	var _createDOMHistory = __webpack_require__(/*! ./createDOMHistory */ 507);
 	
 	var _createDOMHistory2 = _interopRequireDefault(_createDOMHistory);
 	
@@ -33342,7 +33391,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 501 */
+/* 502 */
 /*!**************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/Actions.js ***!
   \**************************************************************************************/
@@ -33381,7 +33430,7 @@
 	};
 
 /***/ },
-/* 502 */
+/* 503 */
 /*!****************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/PathUtils.js ***!
   \****************************************************************************************/
@@ -33395,7 +33444,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -33437,7 +33486,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 503 */
+/* 504 */
 /*!***************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/ExecutionEnvironment.js ***!
   \***************************************************************************************************/
@@ -33450,7 +33499,7 @@
 	exports.canUseDOM = canUseDOM;
 
 /***/ },
-/* 504 */
+/* 505 */
 /*!***************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/DOMUtils.js ***!
   \***************************************************************************************/
@@ -33533,7 +33582,7 @@
 	}
 
 /***/ },
-/* 505 */
+/* 506 */
 /*!**********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/DOMStateStorage.js ***!
   \**********************************************************************************************/
@@ -33548,7 +33597,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -33615,7 +33664,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 506 */
+/* 507 */
 /*!***********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/createDOMHistory.js ***!
   \***********************************************************************************************/
@@ -33633,11 +33682,11 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 503);
+	var _ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 504);
 	
-	var _DOMUtils = __webpack_require__(/*! ./DOMUtils */ 504);
+	var _DOMUtils = __webpack_require__(/*! ./DOMUtils */ 505);
 	
-	var _createHistory = __webpack_require__(/*! ./createHistory */ 507);
+	var _createHistory = __webpack_require__(/*! ./createHistory */ 508);
 	
 	var _createHistory2 = _interopRequireDefault(_createHistory);
 	
@@ -33664,7 +33713,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 507 */
+/* 508 */
 /*!********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/createHistory.js ***!
   \********************************************************************************************/
@@ -33678,29 +33727,29 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _deepEqual = __webpack_require__(/*! deep-equal */ 508);
+	var _deepEqual = __webpack_require__(/*! deep-equal */ 509);
 	
 	var _deepEqual2 = _interopRequireDefault(_deepEqual);
 	
-	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 502);
+	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 503);
 	
-	var _AsyncUtils = __webpack_require__(/*! ./AsyncUtils */ 511);
+	var _AsyncUtils = __webpack_require__(/*! ./AsyncUtils */ 512);
 	
-	var _Actions = __webpack_require__(/*! ./Actions */ 501);
+	var _Actions = __webpack_require__(/*! ./Actions */ 502);
 	
-	var _createLocation2 = __webpack_require__(/*! ./createLocation */ 512);
+	var _createLocation2 = __webpack_require__(/*! ./createLocation */ 513);
 	
 	var _createLocation3 = _interopRequireDefault(_createLocation2);
 	
-	var _runTransitionHook = __webpack_require__(/*! ./runTransitionHook */ 513);
+	var _runTransitionHook = __webpack_require__(/*! ./runTransitionHook */ 514);
 	
 	var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 	
-	var _deprecate = __webpack_require__(/*! ./deprecate */ 514);
+	var _deprecate = __webpack_require__(/*! ./deprecate */ 515);
 	
 	var _deprecate2 = _interopRequireDefault(_deprecate);
 	
@@ -33961,15 +34010,15 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 508 */
+/* 509 */
 /*!***********************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/deep-equal/index.js ***!
   \***********************************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	var pSlice = Array.prototype.slice;
-	var objectKeys = __webpack_require__(/*! ./lib/keys.js */ 509);
-	var isArguments = __webpack_require__(/*! ./lib/is_arguments.js */ 510);
+	var objectKeys = __webpack_require__(/*! ./lib/keys.js */ 510);
+	var isArguments = __webpack_require__(/*! ./lib/is_arguments.js */ 511);
 	
 	var deepEqual = module.exports = function (actual, expected, opts) {
 	  if (!opts) opts = {};
@@ -34064,7 +34113,7 @@
 
 
 /***/ },
-/* 509 */
+/* 510 */
 /*!**************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/deep-equal/lib/keys.js ***!
   \**************************************************************************************/
@@ -34082,7 +34131,7 @@
 
 
 /***/ },
-/* 510 */
+/* 511 */
 /*!**********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/deep-equal/lib/is_arguments.js ***!
   \**********************************************************************************************/
@@ -34111,7 +34160,7 @@
 
 
 /***/ },
-/* 511 */
+/* 512 */
 /*!*****************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/AsyncUtils.js ***!
   \*****************************************************************************************/
@@ -34177,7 +34226,7 @@
 	}
 
 /***/ },
-/* 512 */
+/* 513 */
 /*!*********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/createLocation.js ***!
   \*********************************************************************************************/
@@ -34191,13 +34240,13 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _Actions = __webpack_require__(/*! ./Actions */ 501);
+	var _Actions = __webpack_require__(/*! ./Actions */ 502);
 	
-	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 502);
+	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 503);
 	
 	function createLocation() {
 	  var location = arguments.length <= 0 || arguments[0] === undefined ? '/' : arguments[0];
@@ -34237,7 +34286,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 513 */
+/* 514 */
 /*!************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/runTransitionHook.js ***!
   \************************************************************************************************/
@@ -34249,7 +34298,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -34270,7 +34319,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 514 */
+/* 515 */
 /*!****************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/deprecate.js ***!
   \****************************************************************************************/
@@ -34282,7 +34331,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -34298,7 +34347,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 515 */
+/* 516 */
 /*!*****************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/useQueries.js ***!
   \*****************************************************************************************/
@@ -34312,19 +34361,19 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _queryString = __webpack_require__(/*! query-string */ 516);
+	var _queryString = __webpack_require__(/*! query-string */ 517);
 	
-	var _runTransitionHook = __webpack_require__(/*! ./runTransitionHook */ 513);
+	var _runTransitionHook = __webpack_require__(/*! ./runTransitionHook */ 514);
 	
 	var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 	
-	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 502);
+	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 503);
 	
-	var _deprecate = __webpack_require__(/*! ./deprecate */ 514);
+	var _deprecate = __webpack_require__(/*! ./deprecate */ 515);
 	
 	var _deprecate2 = _interopRequireDefault(_deprecate);
 	
@@ -34483,14 +34532,14 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 516 */
+/* 517 */
 /*!***********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/~/query-string/index.js ***!
   \***********************************************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var strictUriEncode = __webpack_require__(/*! strict-uri-encode */ 517);
+	var strictUriEncode = __webpack_require__(/*! strict-uri-encode */ 518);
 	
 	exports.extract = function (str) {
 		return str.split('?')[1] || '';
@@ -34558,7 +34607,7 @@
 
 
 /***/ },
-/* 517 */
+/* 518 */
 /*!******************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/strict-uri-encode/index.js ***!
   \******************************************************************************************/
@@ -34573,7 +34622,7 @@
 
 
 /***/ },
-/* 518 */
+/* 519 */
 /*!***********************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/createTransitionManager.js ***!
   \***********************************************************************************************************/
@@ -34587,27 +34636,27 @@
 	
 	exports.default = createTransitionManager;
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _Actions = __webpack_require__(/*! history/lib/Actions */ 501);
+	var _Actions = __webpack_require__(/*! history/lib/Actions */ 502);
 	
-	var _computeChangedRoutes2 = __webpack_require__(/*! ./computeChangedRoutes */ 519);
+	var _computeChangedRoutes2 = __webpack_require__(/*! ./computeChangedRoutes */ 520);
 	
 	var _computeChangedRoutes3 = _interopRequireDefault(_computeChangedRoutes2);
 	
-	var _TransitionUtils = __webpack_require__(/*! ./TransitionUtils */ 520);
+	var _TransitionUtils = __webpack_require__(/*! ./TransitionUtils */ 521);
 	
-	var _isActive2 = __webpack_require__(/*! ./isActive */ 522);
+	var _isActive2 = __webpack_require__(/*! ./isActive */ 523);
 	
 	var _isActive3 = _interopRequireDefault(_isActive2);
 	
-	var _getComponents = __webpack_require__(/*! ./getComponents */ 523);
+	var _getComponents = __webpack_require__(/*! ./getComponents */ 524);
 	
 	var _getComponents2 = _interopRequireDefault(_getComponents);
 	
-	var _matchRoutes = __webpack_require__(/*! ./matchRoutes */ 525);
+	var _matchRoutes = __webpack_require__(/*! ./matchRoutes */ 526);
 	
 	var _matchRoutes2 = _interopRequireDefault(_matchRoutes);
 	
@@ -34889,7 +34938,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 519 */
+/* 520 */
 /*!********************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/computeChangedRoutes.js ***!
   \********************************************************************************************************/
@@ -34899,7 +34948,7 @@
 	
 	exports.__esModule = true;
 	
-	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 498);
+	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 499);
 	
 	function routeParamsChanged(route, prevState, nextState) {
 	  if (!route.path) return false;
@@ -34974,7 +35023,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 520 */
+/* 521 */
 /*!***************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/TransitionUtils.js ***!
   \***************************************************************************************************/
@@ -34987,9 +35036,9 @@
 	exports.runChangeHooks = runChangeHooks;
 	exports.runLeaveHooks = runLeaveHooks;
 	
-	var _AsyncUtils = __webpack_require__(/*! ./AsyncUtils */ 521);
+	var _AsyncUtils = __webpack_require__(/*! ./AsyncUtils */ 522);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -35105,7 +35154,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 521 */
+/* 522 */
 /*!**********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/AsyncUtils.js ***!
   \**********************************************************************************************/
@@ -35201,7 +35250,7 @@
 	}
 
 /***/ },
-/* 522 */
+/* 523 */
 /*!********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/isActive.js ***!
   \********************************************************************************************/
@@ -35215,7 +35264,7 @@
 	
 	exports.default = isActive;
 	
-	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 498);
+	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 499);
 	
 	function deepEqual(a, b) {
 	  if (a == b) return true;
@@ -35361,7 +35410,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 523 */
+/* 524 */
 /*!*************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/getComponents.js ***!
   \*************************************************************************************************/
@@ -35371,9 +35420,9 @@
 	
 	exports.__esModule = true;
 	
-	var _AsyncUtils = __webpack_require__(/*! ./AsyncUtils */ 521);
+	var _AsyncUtils = __webpack_require__(/*! ./AsyncUtils */ 522);
 	
-	var _makeStateWithLocation = __webpack_require__(/*! ./makeStateWithLocation */ 524);
+	var _makeStateWithLocation = __webpack_require__(/*! ./makeStateWithLocation */ 525);
 	
 	var _makeStateWithLocation2 = _interopRequireDefault(_makeStateWithLocation);
 	
@@ -35415,7 +35464,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 524 */
+/* 525 */
 /*!*********************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/makeStateWithLocation.js ***!
   \*********************************************************************************************************/
@@ -35429,9 +35478,9 @@
 	
 	exports.default = makeStateWithLocation;
 	
-	var _deprecateObjectProperties = __webpack_require__(/*! ./deprecateObjectProperties */ 494);
+	var _deprecateObjectProperties = __webpack_require__(/*! ./deprecateObjectProperties */ 495);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -35473,7 +35522,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 525 */
+/* 526 */
 /*!***********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/matchRoutes.js ***!
   \***********************************************************************************************/
@@ -35489,19 +35538,19 @@
 	
 	exports.default = matchRoutes;
 	
-	var _AsyncUtils = __webpack_require__(/*! ./AsyncUtils */ 521);
+	var _AsyncUtils = __webpack_require__(/*! ./AsyncUtils */ 522);
 	
-	var _makeStateWithLocation = __webpack_require__(/*! ./makeStateWithLocation */ 524);
+	var _makeStateWithLocation = __webpack_require__(/*! ./makeStateWithLocation */ 525);
 	
 	var _makeStateWithLocation2 = _interopRequireDefault(_makeStateWithLocation);
 	
-	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 498);
+	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 499);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 492);
+	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 493);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -35733,7 +35782,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 526 */
+/* 527 */
 /*!*************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/RouterContext.js ***!
   \*************************************************************************************************/
@@ -35755,17 +35804,17 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _deprecateObjectProperties = __webpack_require__(/*! ./deprecateObjectProperties */ 494);
+	var _deprecateObjectProperties = __webpack_require__(/*! ./deprecateObjectProperties */ 495);
 	
 	var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 	
-	var _getRouteParams = __webpack_require__(/*! ./getRouteParams */ 527);
+	var _getRouteParams = __webpack_require__(/*! ./getRouteParams */ 528);
 	
 	var _getRouteParams2 = _interopRequireDefault(_getRouteParams);
 	
-	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 492);
+	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 493);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -35898,7 +35947,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 527 */
+/* 528 */
 /*!**************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/getRouteParams.js ***!
   \**************************************************************************************************/
@@ -35908,7 +35957,7 @@
 	
 	exports.__esModule = true;
 	
-	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 498);
+	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 499);
 	
 	/**
 	 * Extracts an object of params the given route cares about from
@@ -35932,7 +35981,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 528 */
+/* 529 */
 /*!***********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/RouterUtils.js ***!
   \***********************************************************************************************/
@@ -35947,7 +35996,7 @@
 	exports.createRouterObject = createRouterObject;
 	exports.createRoutingHistory = createRoutingHistory;
 	
-	var _deprecateObjectProperties = __webpack_require__(/*! ./deprecateObjectProperties */ 494);
+	var _deprecateObjectProperties = __webpack_require__(/*! ./deprecateObjectProperties */ 495);
 	
 	var _deprecateObjectProperties2 = _interopRequireDefault(_deprecateObjectProperties);
 	
@@ -35973,7 +36022,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 529 */
+/* 530 */
 /*!****************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/Link.js ***!
   \****************************************************************************************/
@@ -35989,7 +36038,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -35997,7 +36046,7 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _PropTypes = __webpack_require__(/*! ./PropTypes */ 493);
+	var _PropTypes = __webpack_require__(/*! ./PropTypes */ 494);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -36161,7 +36210,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 530 */
+/* 531 */
 /*!*********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/IndexLink.js ***!
   \*********************************************************************************************/
@@ -36177,7 +36226,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Link = __webpack_require__(/*! ./Link */ 529);
+	var _Link = __webpack_require__(/*! ./Link */ 530);
 	
 	var _Link2 = _interopRequireDefault(_Link);
 	
@@ -36197,7 +36246,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 531 */
+/* 532 */
 /*!**********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/withRouter.js ***!
   \**********************************************************************************************/
@@ -36219,7 +36268,7 @@
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _PropTypes = __webpack_require__(/*! ./PropTypes */ 493);
+	var _PropTypes = __webpack_require__(/*! ./PropTypes */ 494);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -36245,7 +36294,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 532 */
+/* 533 */
 /*!*************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/IndexRedirect.js ***!
   \*************************************************************************************************/
@@ -36259,7 +36308,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -36267,11 +36316,11 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _Redirect = __webpack_require__(/*! ./Redirect */ 533);
+	var _Redirect = __webpack_require__(/*! ./Redirect */ 534);
 	
 	var _Redirect2 = _interopRequireDefault(_Redirect);
 	
-	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 497);
+	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 498);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -36317,7 +36366,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 533 */
+/* 534 */
 /*!********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/Redirect.js ***!
   \********************************************************************************************/
@@ -36335,11 +36384,11 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 492);
+	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 493);
 	
-	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 498);
+	var _PatternUtils = __webpack_require__(/*! ./PatternUtils */ 499);
 	
-	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 497);
+	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 498);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -36428,7 +36477,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 534 */
+/* 535 */
 /*!**********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/IndexRoute.js ***!
   \**********************************************************************************************/
@@ -36442,7 +36491,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -36450,9 +36499,9 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 492);
+	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 493);
 	
-	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 497);
+	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 498);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -36497,7 +36546,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 535 */
+/* 536 */
 /*!*****************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/Route.js ***!
   \*****************************************************************************************/
@@ -36515,9 +36564,9 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 492);
+	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 493);
 	
-	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 497);
+	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 498);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -36563,7 +36612,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 536 */
+/* 537 */
 /*!*******************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/History.js ***!
   \*******************************************************************************************/
@@ -36573,11 +36622,11 @@
 	
 	exports.__esModule = true;
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
-	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 497);
+	var _InternalPropTypes = __webpack_require__(/*! ./InternalPropTypes */ 498);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -36601,7 +36650,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 537 */
+/* 538 */
 /*!*********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/Lifecycle.js ***!
   \*********************************************************************************************/
@@ -36611,7 +36660,7 @@
 	
 	exports.__esModule = true;
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -36678,7 +36727,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 538 */
+/* 539 */
 /*!************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/RouteContext.js ***!
   \************************************************************************************************/
@@ -36688,7 +36737,7 @@
 	
 	exports.__esModule = true;
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -36732,7 +36781,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 539 */
+/* 540 */
 /*!*********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/useRoutes.js ***!
   \*********************************************************************************************/
@@ -36744,15 +36793,15 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _useQueries = __webpack_require__(/*! history/lib/useQueries */ 515);
+	var _useQueries = __webpack_require__(/*! history/lib/useQueries */ 516);
 	
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 	
-	var _createTransitionManager = __webpack_require__(/*! ./createTransitionManager */ 518);
+	var _createTransitionManager = __webpack_require__(/*! ./createTransitionManager */ 519);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -36792,7 +36841,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 540 */
+/* 541 */
 /*!**************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/RoutingContext.js ***!
   \**************************************************************************************************/
@@ -36806,11 +36855,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _RouterContext = __webpack_require__(/*! ./RouterContext */ 526);
+	var _RouterContext = __webpack_require__(/*! ./RouterContext */ 527);
 	
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 	
-	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 495);
+	var _routerWarning = __webpack_require__(/*! ./routerWarning */ 496);
 	
 	var _routerWarning2 = _interopRequireDefault(_routerWarning);
 	
@@ -36831,7 +36880,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 541 */
+/* 542 */
 /*!*****************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/match.js ***!
   \*****************************************************************************************/
@@ -36847,17 +36896,17 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _createMemoryHistory = __webpack_require__(/*! ./createMemoryHistory */ 542);
+	var _createMemoryHistory = __webpack_require__(/*! ./createMemoryHistory */ 543);
 	
 	var _createMemoryHistory2 = _interopRequireDefault(_createMemoryHistory);
 	
-	var _createTransitionManager = __webpack_require__(/*! ./createTransitionManager */ 518);
+	var _createTransitionManager = __webpack_require__(/*! ./createTransitionManager */ 519);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 492);
+	var _RouteUtils = __webpack_require__(/*! ./RouteUtils */ 493);
 	
-	var _RouterUtils = __webpack_require__(/*! ./RouterUtils */ 528);
+	var _RouterUtils = __webpack_require__(/*! ./RouterUtils */ 529);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -36921,7 +36970,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 542 */
+/* 543 */
 /*!*******************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/createMemoryHistory.js ***!
   \*******************************************************************************************************/
@@ -36932,15 +36981,15 @@
 	exports.__esModule = true;
 	exports.default = createMemoryHistory;
 	
-	var _useQueries = __webpack_require__(/*! history/lib/useQueries */ 515);
+	var _useQueries = __webpack_require__(/*! history/lib/useQueries */ 516);
 	
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 	
-	var _useBasename = __webpack_require__(/*! history/lib/useBasename */ 543);
+	var _useBasename = __webpack_require__(/*! history/lib/useBasename */ 544);
 	
 	var _useBasename2 = _interopRequireDefault(_useBasename);
 	
-	var _createMemoryHistory = __webpack_require__(/*! history/lib/createMemoryHistory */ 544);
+	var _createMemoryHistory = __webpack_require__(/*! history/lib/createMemoryHistory */ 545);
 	
 	var _createMemoryHistory2 = _interopRequireDefault(_createMemoryHistory);
 	
@@ -36961,7 +37010,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 543 */
+/* 544 */
 /*!******************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/useBasename.js ***!
   \******************************************************************************************/
@@ -36975,19 +37024,19 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 503);
+	var _ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 504);
 	
-	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 502);
+	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 503);
 	
-	var _runTransitionHook = __webpack_require__(/*! ./runTransitionHook */ 513);
+	var _runTransitionHook = __webpack_require__(/*! ./runTransitionHook */ 514);
 	
 	var _runTransitionHook2 = _interopRequireDefault(_runTransitionHook);
 	
-	var _deprecate = __webpack_require__(/*! ./deprecate */ 514);
+	var _deprecate = __webpack_require__(/*! ./deprecate */ 515);
 	
 	var _deprecate2 = _interopRequireDefault(_deprecate);
 	
@@ -37128,7 +37177,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 544 */
+/* 545 */
 /*!**************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/createMemoryHistory.js ***!
   \**************************************************************************************************/
@@ -37142,7 +37191,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _warning = __webpack_require__(/*! warning */ 496);
+	var _warning = __webpack_require__(/*! warning */ 497);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -37150,11 +37199,11 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 502);
+	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 503);
 	
-	var _Actions = __webpack_require__(/*! ./Actions */ 501);
+	var _Actions = __webpack_require__(/*! ./Actions */ 502);
 	
-	var _createHistory = __webpack_require__(/*! ./createHistory */ 507);
+	var _createHistory = __webpack_require__(/*! ./createHistory */ 508);
 	
 	var _createHistory2 = _interopRequireDefault(_createHistory);
 	
@@ -37291,7 +37340,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 545 */
+/* 546 */
 /*!****************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/useRouterHistory.js ***!
   \****************************************************************************************************/
@@ -37302,11 +37351,11 @@
 	exports.__esModule = true;
 	exports.default = useRouterHistory;
 	
-	var _useQueries = __webpack_require__(/*! history/lib/useQueries */ 515);
+	var _useQueries = __webpack_require__(/*! history/lib/useQueries */ 516);
 	
 	var _useQueries2 = _interopRequireDefault(_useQueries);
 	
-	var _useBasename = __webpack_require__(/*! history/lib/useBasename */ 543);
+	var _useBasename = __webpack_require__(/*! history/lib/useBasename */ 544);
 	
 	var _useBasename2 = _interopRequireDefault(_useBasename);
 	
@@ -37322,7 +37371,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 546 */
+/* 547 */
 /*!*********************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/applyRouterMiddleware.js ***!
   \*********************************************************************************************************/
@@ -37338,7 +37387,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _RouterContext = __webpack_require__(/*! ./RouterContext */ 526);
+	var _RouterContext = __webpack_require__(/*! ./RouterContext */ 527);
 	
 	var _RouterContext2 = _interopRequireDefault(_RouterContext);
 	
@@ -37380,7 +37429,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 547 */
+/* 548 */
 /*!**************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/browserHistory.js ***!
   \**************************************************************************************************/
@@ -37390,11 +37439,11 @@
 	
 	exports.__esModule = true;
 	
-	var _createBrowserHistory = __webpack_require__(/*! history/lib/createBrowserHistory */ 548);
+	var _createBrowserHistory = __webpack_require__(/*! history/lib/createBrowserHistory */ 549);
 	
 	var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 	
-	var _createRouterHistory = __webpack_require__(/*! ./createRouterHistory */ 549);
+	var _createRouterHistory = __webpack_require__(/*! ./createRouterHistory */ 550);
 	
 	var _createRouterHistory2 = _interopRequireDefault(_createRouterHistory);
 	
@@ -37404,7 +37453,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 548 */
+/* 549 */
 /*!***************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/history/lib/createBrowserHistory.js ***!
   \***************************************************************************************************/
@@ -37422,17 +37471,17 @@
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _Actions = __webpack_require__(/*! ./Actions */ 501);
+	var _Actions = __webpack_require__(/*! ./Actions */ 502);
 	
-	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 502);
+	var _PathUtils = __webpack_require__(/*! ./PathUtils */ 503);
 	
-	var _ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 503);
+	var _ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 504);
 	
-	var _DOMUtils = __webpack_require__(/*! ./DOMUtils */ 504);
+	var _DOMUtils = __webpack_require__(/*! ./DOMUtils */ 505);
 	
-	var _DOMStateStorage = __webpack_require__(/*! ./DOMStateStorage */ 505);
+	var _DOMStateStorage = __webpack_require__(/*! ./DOMStateStorage */ 506);
 	
-	var _createDOMHistory = __webpack_require__(/*! ./createDOMHistory */ 506);
+	var _createDOMHistory = __webpack_require__(/*! ./createDOMHistory */ 507);
 	
 	var _createDOMHistory2 = _interopRequireDefault(_createDOMHistory);
 	
@@ -37593,7 +37642,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/process/browser.js */ 295)))
 
 /***/ },
-/* 549 */
+/* 550 */
 /*!*******************************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/createRouterHistory.js ***!
   \*******************************************************************************************************/
@@ -37609,7 +37658,7 @@
 	  return history;
 	};
 	
-	var _useRouterHistory = __webpack_require__(/*! ./useRouterHistory */ 545);
+	var _useRouterHistory = __webpack_require__(/*! ./useRouterHistory */ 546);
 	
 	var _useRouterHistory2 = _interopRequireDefault(_useRouterHistory);
 	
@@ -37620,7 +37669,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 550 */
+/* 551 */
 /*!***********************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/hashHistory.js ***!
   \***********************************************************************************************/
@@ -37630,11 +37679,11 @@
 	
 	exports.__esModule = true;
 	
-	var _createHashHistory = __webpack_require__(/*! history/lib/createHashHistory */ 500);
+	var _createHashHistory = __webpack_require__(/*! history/lib/createHashHistory */ 501);
 	
 	var _createHashHistory2 = _interopRequireDefault(_createHashHistory);
 	
-	var _createRouterHistory = __webpack_require__(/*! ./createRouterHistory */ 549);
+	var _createRouterHistory = __webpack_require__(/*! ./createRouterHistory */ 550);
 	
 	var _createRouterHistory2 = _interopRequireDefault(_createRouterHistory);
 	
@@ -37642,36 +37691,6 @@
 	
 	exports.default = (0, _createRouterHistory2.default)(_createHashHistory2.default);
 	module.exports = exports['default'];
-
-/***/ },
-/* 551 */
-/*!*************************************!*\
-  !*** ./client/js/reducers/index.js ***!
-  \*************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(/*! redux */ 468);
-	
-	var _reactRouterRedux = __webpack_require__(/*! react-router-redux */ 552);
-	
-	var _auth = __webpack_require__(/*! ./auth */ 557);
-	
-	var _auth2 = _interopRequireDefault(_auth);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = (0, _redux.combineReducers)({
-	  routing: _reactRouterRedux.routerReducer,
-	  app: (0, _redux.combineReducers)({
-	    auth: _auth2.default
-	  })
-	});
 
 /***/ },
 /* 552 */
@@ -38052,6 +38071,115 @@
 
 /***/ },
 /* 557 */
+/*!*************************!*\
+  !*** ./client/store.js ***!
+  \*************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.configureStore = configureStore;
+	
+	var _react = __webpack_require__(/*! react */ 300);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _redux = __webpack_require__(/*! redux */ 468);
+	
+	var _reactRouterRedux = __webpack_require__(/*! react-router-redux */ 552);
+	
+	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 558);
+	
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+	
+	var _index = __webpack_require__(/*! ./js/reducers/index */ 559);
+	
+	var _index2 = _interopRequireDefault(_index);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function configureStore(history, initialState) {
+	
+	  var reducer = (0, _redux.combineReducers)({
+	    app: _index2.default,
+	    routing: _reactRouterRedux.routerReducer
+	  });
+	
+	  var store = (0, _redux.createStore)(reducer, initialState, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reactRouterRedux.routerMiddleware)(history))));
+	
+	  return store;
+	}
+
+/***/ },
+/* 558 */
+/*!****************************************************************************************!*\
+  !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/redux-thunk/lib/index.js ***!
+  \****************************************************************************************/
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+	
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+	
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+	
+	exports['default'] = thunk;
+
+/***/ },
+/* 559 */
+/*!*************************************!*\
+  !*** ./client/js/reducers/index.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(/*! redux */ 468);
+	
+	var _auth = __webpack_require__(/*! ./auth */ 560);
+	
+	var _auth2 = _interopRequireDefault(_auth);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function reducer() {
+	  var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	  var action = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	
+	  switch (action.type) {
+	    default:
+	      return state;
+	  }
+	}
+	
+	var reducers = (0, _redux.combineReducers)({ auth: _auth2.default, reducer: reducer });
+	exports.default = reducers;
+
+/***/ },
+/* 560 */
 /*!************************************!*\
   !*** ./client/js/reducers/auth.js ***!
   \************************************/
@@ -38163,67 +38291,6 @@
 	//     promise: (client) => client.get('/logout')
 	//   };
 	// }
-
-/***/ },
-/* 558 */,
-/* 559 */,
-/* 560 */,
-/* 561 */,
-/* 562 */
-/*!****************************************!*\
-  !*** ./client/js/containers/index.jsx ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.index = exports.NoMatch = exports.About = undefined;
-	
-	var _react = __webpack_require__(/*! react */ 300);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 491);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var About = exports.About = function About(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    'about'
-	  );
-	};
-	
-	var NoMatch = exports.NoMatch = function NoMatch(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    'no match'
-	  );
-	};
-	
-	var index = exports.index = function index(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      _reactRouter.Link,
-	      { to: '/about' },
-	      'about'
-	    ),
-	    _react2.default.createElement(
-	      _reactRouter.Link,
-	      { to: '/' },
-	      'app'
-	    ),
-	    props.children
-	  );
-	};
-	exports.default = { index: index, NoMatch: NoMatch, About: About };
 
 /***/ }
 /******/ ]);

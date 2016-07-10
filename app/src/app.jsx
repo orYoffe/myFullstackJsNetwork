@@ -14,7 +14,9 @@ import { renderToString } from 'react-dom/server'
 import reducers from './client/js/reducers/index'
 import routes from './client/js/routes'
 import { createHashHistory } from 'history'
-import { Router, createMemoryHistory, createRoutes, RoutingContext, match  } from 'react-router'
+import { configureStore } from './client/store'
+import { syncHistoryWithStore } from 'react-router-redux'
+import { Router, createRoutes, RoutingContext, match, RouterContext, createMemoryHistory  } from 'react-router'
 import zlib from 'zlib'
 
 const app = express();
@@ -43,44 +45,36 @@ app.use('*', function timeLog(req, res, next) {
 
 // We are going to fill these out in the sections to follow
 function handleRender(req, res, next) {
-  // Create a new Redux store instance
-  const store = createStore(reducers)
 
-  // Grab the initial state from our Redux store
-  const initialState = store.getState()
-  const routes = createRoutes(routes);
-  // useRouterHistory creates a composable higher-order function
-  const appHistory = createMemoryHistory( req.url )
+  const memoryHistory = createMemoryHistory(req.path)
+  let store = configureStore(memoryHistory )
+  const history = syncHistoryWithStore(memoryHistory, store)
 
-  // match({ routes: routes, history: appHistory }, (error, redirectLocation, renderProps) => {
-  //   if (error){
-  //     res.status(500).send(error.message);
-  //   }else if (redirectLocation){
-  //     res.redirect(302, redirectLocation.pathname + redirectLocation.search)
-  //   }else if (renderProps){
-      // Render the component to a string
-      const markup = renderToString(
-        <Provider store={store}>
-          <Router routes={routes} history={appHistory} />
-        </Provider>
-      );
+  match({ history, routes , location: req.originalUrl }, (error, redirectLocation, renderProps) => {
 
-      // const markup = renderToString(<RoutingContext {...renderProps}/>)
-      const html = renderFullPage(markup, initialState)
+    if (error) {
+      res.status(500).send(error.message)
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation.pathname + redirectLocation.search)
+    } else if (renderProps) {
+        store = configureStore(memoryHistory, store.getState() )
+        const content = renderToString(
+          <Provider store={store}>
+            <RouterContext {...renderProps}/>
+          </Provider>
+        )
 
-      // zlib.gzip(html, (err, result) => {
-      //   res.writeHead(200, {
-      //     'Content-Length': result.length,
-      //     'Content-Type': 'text/javascript',
-      //     'Content-Encoding': 'gzip'
-      //   })
-      //   res.write(result)
-        res.status(200).send(html)
-      // });
-    // }else{
-    //   next();
-    // }
-  // })
+        zlib.gzip(content, (err, result) => {
+          res.writeHead(200, {
+            'Content-Length': result.length,
+            'Content-Type': 'text/javascript',
+            'Content-Encoding': 'gzip'
+          })
+          res.write(result)
+          res.status(200).send(html)
+        res.status(200).send(renderFullPage(content, store.getState()))
+    }
+  })
 }
 
 

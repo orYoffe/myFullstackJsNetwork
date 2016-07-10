@@ -1,11 +1,12 @@
 import { combineReducers } from 'redux';
-import { routerReducer as routing } from 'react-router-redux';
 
+
+function reducer(state = {}, action = {}) {
+  switch (action.type) {
+    default:
+      return state;
+  }
+}
 import auth from './auth';
-
-export default combineReducers({
-  routing,
-  app: combineReducers({
-    auth
-  })
-});
+const reducers =  combineReducers({  auth, reducer  })
+export default reducers;

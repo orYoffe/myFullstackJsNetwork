@@ -4,7 +4,7 @@ import { Route, IndexRoute } from 'react-router'
 
 const routes = (
 <Route path="/" component={index}>
-  <Route path="about" component={About}/>
+  <Route path="/about" component={About}/>
   <Route path="*" component={NoMatch}/>
 </Route>
 );
