@@ -3,14 +3,14 @@
   "version": "0.0.0",
   "private": true,
   "description": "\u0016A fullstack javascript social network",
-  "main": "index.js",
+  "main": "./app/dist/server.js",
   "scripts": {
     "mongo": "cd /c/MongoDB/Server/3.2/bin && ./mongod",
     "build": "babel ./app/src -d ./app/dist && webpack --progress",
-    "serve": "node ./app/dist/index.js",
+    "serve": "node ./app/dist/server.js",
     "test": "mocha --compilers js:babel-register",
     "start": "npm run build && npm run serve",
-    "dev-server": "nodemon ./app/src/index.js --exec babel-node --presets es2015,stage-2",
+    "dev-server": "nodemon ./app/src/server.js --exec babel-node --presets es2015,stage-2",
     "dev-webpack": "webpack --watch --progress -d --config webpack.config.dev.js",
     "dev1": "npm run dev-server",
     "dev2": "npm run dev-webpack"

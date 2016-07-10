@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {About, index, NoMatch} from './containers/index.jsx'
+import {About, index, NoMatch} from './containers/index'
 import { Route, IndexRoute } from 'react-router'
 
 const routes = (

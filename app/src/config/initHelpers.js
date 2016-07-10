@@ -3,7 +3,7 @@
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+export function normalizePort(val) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -23,7 +23,7 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+export function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -47,9 +47,31 @@ function onError(error) {
   }
 }
 
+export function renderFullPage(html, initialState) {
+  return `
+  <!doctype html>
+  <html>
+    <head>
+      <meta charset="UTF-8">
+        <title>myFullstackJsNetwork</title>
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="stylesheet" href="styles.css" charset="utf-8">
+        </head>
+        <body>
+          <div id="root">${html}</div>
+          <script>
+            window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+          </script>
+          <script src="bundle.js"></script>
+        </body>
+      </html>
+      `
+    }
 
 
-module.exports = {
+
+export default {
   normalizePort,
-  onError
+  onError,
+  renderFullPage
 };

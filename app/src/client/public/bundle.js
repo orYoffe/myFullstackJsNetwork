@@ -75,16 +75,10 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	// Grab the state from a global injected into server-generated HTML
 	var initialState = window.__INITIAL_STATE__;
-	
-	// Create Redux store with initial state
-	// const store = createStore(reducers, initialState, window.devToolsExtension && window.devToolsExtension());
-	
-	// import reducers from './js/reducers/index';
-	var store = (0, _store.configureStore)(_reactRouter.browserHistory, initialState);
-	
+	var store = (0, _store.configureStore)(_reactRouter.browserHistory, initialState, true);
 	var history = (0, _reactRouterRedux.syncHistoryWithStore)(_reactRouter.browserHistory, store);
+	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: store },
@@ -32000,7 +31994,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _index = __webpack_require__(/*! ./containers/index.jsx */ 491);
+	var _index = __webpack_require__(/*! ./containers/index */ 561);
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 492);
 	
@@ -32016,63 +32010,7 @@
 	exports.default = routes;
 
 /***/ },
-/* 491 */
-/*!****************************************!*\
-  !*** ./client/js/containers/index.jsx ***!
-  \****************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.index = exports.NoMatch = exports.About = undefined;
-	
-	var _react = __webpack_require__(/*! react */ 300);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 492);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var About = exports.About = function About(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    'about'
-	  );
-	};
-	
-	var NoMatch = exports.NoMatch = function NoMatch(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    'no match'
-	  );
-	};
-	
-	var index = exports.index = function index(props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      _reactRouter.Link,
-	      { to: '/about' },
-	      'about'
-	    ),
-	    _react2.default.createElement(
-	      _reactRouter.Link,
-	      { to: '/' },
-	      'app'
-	    ),
-	    props.children
-	  );
-	};
-	exports.default = { index: index, NoMatch: NoMatch, About: About };
-
-/***/ },
+/* 491 */,
 /* 492 */
 /*!*****************************************************************************************!*\
   !*** C:/Users/ragio/nodeSocialNetwork/myFullstackJsNetwork/~/react-router/lib/index.js ***!
@@ -38101,14 +38039,16 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function configureStore(history, initialState) {
+	function configureStore(history, initialState, isDev) {
 	
 	  var reducer = (0, _redux.combineReducers)({
 	    app: _index2.default,
 	    routing: _reactRouterRedux.routerReducer
 	  });
 	
-	  var store = (0, _redux.createStore)(reducer, initialState, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reactRouterRedux.routerMiddleware)(history))));
+	  var store = isDev ? (0, _redux.createStore)(reducer, initialState, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reactRouterRedux.routerMiddleware)(history)), window.devToolsExtension ? window.devToolsExtension() : function (f) {
+	    return f;
+	  })) : (0, _redux.createStore)(reducer, initialState, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default, (0, _reactRouterRedux.routerMiddleware)(history))));
 	
 	  return store;
 	}
@@ -38291,6 +38231,63 @@
 	//     promise: (client) => client.get('/logout')
 	//   };
 	// }
+
+/***/ },
+/* 561 */
+/*!***************************************!*\
+  !*** ./client/js/containers/index.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.index = exports.NoMatch = exports.About = undefined;
+	
+	var _react = __webpack_require__(/*! react */ 300);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 492);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var About = exports.About = function About(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    'about'
+	  );
+	};
+	
+	var NoMatch = exports.NoMatch = function NoMatch(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    'no match'
+	  );
+	};
+	
+	var index = exports.index = function index(props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/about' },
+	      'about'
+	    ),
+	    _react2.default.createElement(
+	      _reactRouter.Link,
+	      { to: '/' },
+	      'app'
+	    ),
+	    props.children
+	  );
+	};
+	exports.default = { index: index, NoMatch: NoMatch, About: About };
 
 /***/ }
 /******/ ]);

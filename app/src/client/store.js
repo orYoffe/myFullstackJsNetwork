@@ -5,14 +5,24 @@ import { routerReducer, routerMiddleware } from 'react-router-redux'
 import thunkMiddleware from 'redux-thunk'
 import indexReduxer from './js/reducers/index'
 
-export function configureStore(history, initialState) {
+export function configureStore(history, initialState, isDev) {
 
   const reducer = combineReducers({
     app: indexReduxer,
     routing: routerReducer
   })
 
-  const store = createStore(
+  const store = isDev ? createStore(
+    reducer,
+    initialState,
+    compose(
+      applyMiddleware(
+        thunkMiddleware,
+        routerMiddleware(history)
+      ),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+  ) : createStore(
     reducer,
     initialState,
     compose(
@@ -21,7 +31,7 @@ export function configureStore(history, initialState) {
         routerMiddleware(history)
       )
     )
-  )
+  );
 
   return store
 }
