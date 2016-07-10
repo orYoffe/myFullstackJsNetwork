@@ -6,12 +6,14 @@
   "main": "index.js",
   "scripts": {
     "mongo": "cd /c/MongoDB/Server/3.2/bin && ./mongod",
-    "webpack": "webpack --progress --watch",
-    "start": "webpack --progress && nodemon ./app/src/index.js --exec babel-node --presets es2015,stage-2",
-    "build": "babel ./app/src -d ./app/dist",
+    "build": "babel ./app/src -d ./app/dist && webpack --progress",
     "serve": "node ./app/dist/index.js",
-    "deploy": "webpack --progress && npm run build && nodemon ./app/dist/index.js",
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --compilers js:babel-register",
+    "start": "npm run build && npm run serve",
+    "dev-server": "nodemon ./app/src/index.js --exec babel-node --presets es2015,stage-2",
+    "dev-webpack": "webpack --watch --progress -d --config webpack.config.dev.js",
+    "dev1": "npm run dev-server",
+    "dev2": "npm run dev-webpack"
   },
   "repository": {
     "type": "git",
@@ -30,6 +32,7 @@
     "express": "~4.13.4",
     "express-handlebars": "^3.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "import": "0.0.6",
     "jsonwebtoken": "^7.0.1",
     "mongoose": "^4.5.3",
     "morgan": "~1.7.0",
@@ -37,7 +40,8 @@
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "react-router": "^2.5.2",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
