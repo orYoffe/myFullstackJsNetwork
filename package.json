@@ -1,8 +1,8 @@
 {
   "name": "my-fullstack-js-network",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
-  "description": "\u0016A fullstack javascript social network",
+  "description": "\u0016This is an ```Express``` app using react, redux, react-router, Es6, and server rendering.",
   "main": "./app/dist/server.js",
   "scripts": {
     "mongo": "cd /c/MongoDB/Server/3.2/bin && ./mongod",
@@ -18,6 +18,19 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/orYoffe/myFullstackJsNetwork.git"
+  },
+  "keywords": [
+    "express",
+    "react",
+    "redux",
+    "react router",
+    "server side rendering",
+    "universal",
+    "isomorphic",
+    "example"
+  ],
+  "engines": {
+    "node": "6.2.2"
   },
   "author": "Or Yoffe <ragiop07@gmail.com>",
   "license": "MIT",
