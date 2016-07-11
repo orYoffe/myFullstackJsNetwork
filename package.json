@@ -6,7 +6,7 @@
   "main": "./app/dist/server.js",
   "scripts": {
     "mongo": "cd /c/MongoDB/Server/3.2/bin && ./mongod",
-    "build": "babel ./app/src -d ./app/dist && webpack --progress",
+    "build": "babel ./app/src -d ./app/dist && webpack -p --progress",
     "serve": "node ./app/dist/server.js",
     "test": "mocha --compilers js:babel-register",
     "start": "npm run build && npm run serve",
