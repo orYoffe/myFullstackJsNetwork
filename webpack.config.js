@@ -2,8 +2,8 @@ var path = require('path');
 var srcPath = path.join(__dirname, 'app/src');
 const webpack = require('webpack');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 var buildPath = path.join(__dirname, 'app/dist/client/public');
+process.env.NODE_ENV = 'production';
 
 module.exports = {
     context: srcPath,
@@ -11,7 +11,7 @@ module.exports = {
     output: {
       path: buildPath,
       filename: "bundle.js",
-      publicPath: "/"
+      publicPath: "/public/"
     },
     module: {
       preLoaders: [
@@ -52,21 +52,20 @@ module.exports = {
       includePaths: [path.resolve(srcPath)]
     },
     plugins: [
-      new BrowserSyncPlugin({
-        host: 'localhost',
-        port: 3100,
-        proxy: 'http://localhost:3000/'},
-        {reload: true
+        new ExtractTextPlugin("styles.css", {allChunks: true}),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                warnings: false,
+            },
+            output: {
+                comments: false,
+            }
         }),
-        new ExtractTextPlugin("styles.css", {allChunks: true})
-        //     new webpack.optimize.UglifyJsPlugin({
-        //         compress: {
-        //             warnings: process.env.NODE_ENV == 'dev',
-        //         },
-        //         output: {
-        //             comments: process.env.NODE_ENV == 'dev',
-        //         }
-        //     })
+        new webpack.DefinePlugin({
+          'process.env': {
+            'NODE_ENV': JSON.stringify('production')
+          }
+        })
       ],
       webpackServer: {
         noInfo: true // Suppress all webpack messages, except errors

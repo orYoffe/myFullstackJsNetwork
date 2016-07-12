@@ -1,5 +1,6 @@
 import express from 'express'
 import path from 'path'
+import helmet from 'helmet'
 import favicon from 'serve-favicon'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
@@ -21,7 +22,17 @@ import { match, RouterContext, createMemoryHistory  } from 'react-router'
 const debug = require('debug')('myFullstackJsNetwork:server')
 import http from 'http'
 
+const folderName = __dirname.substring(__dirname.length-4, __dirname.length);
+if(folderName !== '/src' && folderName === 'dist'){
+  process.env.NODE_ENV = 'production';
+}else if(folderName === '/src' && folderName !== 'dist'){
+  process.env.NODE_ENV = 'development';
+}
+console.log('===============================process.env.NODE_ENV',process.env.NODE_ENV)
+
 const app = express()
+
+app.use(helmet())
 // TODO uncomment when using db
 // import mongoose from 'mongoose'
 // mongoose.connect(config.getDb())
@@ -115,8 +126,6 @@ function onListening() {
     : 'port ' + addr.port
   debug('Listening on ' + bind)
 }
-server.listen(port)
-const host = server.address().address
-console.log("server listening at http://%s:%s", host, port)
+console.log("server listening at http://localhost:" + port)
 server.on('error', onError)
 server.on('listening', onListening)

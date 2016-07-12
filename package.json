@@ -45,6 +45,7 @@
     "express": "~4.13.4",
     "express-handlebars": "^3.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "helmet": "^2.1.1",
     "import": "0.0.6",
     "jsonwebtoken": "^7.0.1",
     "mongoose": "^4.5.3",
@@ -55,7 +56,10 @@
     "react-router": "^2.5.2",
     "redux-thunk": "^2.1.0",
     "serve-favicon": "~2.3.0",
-    "zlib": "^1.0.5"
+    "react-redux": "^4.4.5",
+    "react-router": "^2.5.2",
+    "react-router-redux": "^4.0.5",
+    "redux": "^3.5.2"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.2.0",
@@ -73,10 +77,6 @@
     "eslint-loader": "^1.4.1",
     "mocha": "^2.5.3",
     "node-sass": "^3.8.0",
-    "react-redux": "^4.4.5",
-    "react-router": "^2.5.2",
-    "react-router-redux": "^4.0.5",
-    "redux": "^3.5.2",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
