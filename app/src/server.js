@@ -1,7 +1,6 @@
 import express from 'express'
 import path from 'path'
 import helmet from 'helmet'
-import favicon from 'serve-favicon'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
@@ -19,7 +18,9 @@ import { createHashHistory } from 'history'
 import { configureStore } from './client/store'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { match, RouterContext, createMemoryHistory  } from 'react-router'
-const debug = require('debug')('myFullstackJsNetwork:server')
+
+process.env.DEBUG = 'myFullstackJsNetwork';
+const debug = require('debug')('myFullstackJsNetwork')
 import http from 'http'
 
 const folderName = __dirname.substring(__dirname.length-4, __dirname.length);
@@ -28,7 +29,6 @@ if(folderName !== '/src' && folderName === 'dist'){
 }else if(folderName === '/src' && folderName !== 'dist'){
   process.env.NODE_ENV = 'development';
 }
-console.log('===============================process.env.NODE_ENV',process.env.NODE_ENV)
 
 const app = express()
 
@@ -44,7 +44,6 @@ app.engine('hbs', hbs({extname: 'hbs', defaultLayout: 'layout', layoutsDir: __di
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
 
-app.use(favicon(path.join(__dirname, 'client/public', 'favicon.ico')))
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -59,8 +58,7 @@ app.use('*', function timeLog(req, res, next) {
 
 // We are going to fill these out in the sections to follow
 function handleRender(req, res, next) {
-
-  const memoryHistory = createMemoryHistory(req.path)
+  const memoryHistory = createMemoryHistory(req.originalUrl)
   let store = configureStore(memoryHistory )
   const history = syncHistoryWithStore(memoryHistory, store)
 
@@ -118,14 +116,17 @@ app.use(function(err, req, res, next) {
 
 const port = normalizePort(process.env.PORT || '3000')
 app.set('port', port)
-const server = http.createServer(app)
+let server = http.createServer(app)
 function onListening() {
+console.log("server listening at http://localhost:" + port)
   const addr = server.address()
   const bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port
   debug('Listening on ' + bind)
 }
-console.log("server listening at http://localhost:" + port)
 server.on('error', onError)
 server.on('listening', onListening)
+server.listen(port);
+
+export default server;

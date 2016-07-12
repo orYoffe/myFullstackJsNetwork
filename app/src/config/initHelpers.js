@@ -54,7 +54,7 @@ export function renderFullPage(html, initialState) {
     <head>
       <meta charset="UTF-8">
         <title>myFullstackJsNetwork</title>
-        <link rel="shortcut icon" href="favicon.ico" />
+        <link id="favicon" rel="shortcut icon" href="favicon.ico" />
         <link rel="stylesheet" href="styles.css" charset="utf-8">
         </head>
         <body>
@@ -66,9 +66,7 @@ export function renderFullPage(html, initialState) {
         </body>
       </html>
       `
-    }
-
-
+}
 
 export default {
   normalizePort,

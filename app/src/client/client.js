@@ -1,5 +1,6 @@
 import 'babel-polyfill'
 import './sass/index.scss'
+import faviconUrl from 'file!./img/favicon.ico'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
@@ -11,6 +12,7 @@ import { configureStore } from './store'
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(browserHistory, initialState, true)
 const history = syncHistoryWithStore(browserHistory, store)
+document.getElementById('favicon').href = faviconUrl
 
 render(
   <Provider store={store}>

@@ -15,13 +15,13 @@ module.exports = {
     },
     module: {
       preLoaders: [
-        {test: /\.js$/, loader: "eslint-loader", exclude: /node_modules/}
+        {test: /\.js$/, loader: "eslint-loader", exclude: /(node_modules|bower_components)/}
       ],
       loaders: [
 
         {
           test: /\.css$/,
-          exclude: /node_modules/,
+          exclude: /(node_modules|bower_components)/,
           loader: 'style-loader!css-loader?sourceMap!autoprefixer-loader'
         },
         {
@@ -30,15 +30,7 @@ module.exports = {
           'css-loader?sourceMap!sass-loader?outputStyle=expanded&sourceMap=true&sourceMapContents=true')
         },
         {
-          test: /\.js$/,
-          exclude: /(node_modules|bower_components)/,
-          loader: 'babel',
-          query: {
-            presets:[ 'es2015', 'react', 'stage-2' ]
-          }
-        },
-        {
-          test: /\.jsx$/,
+          test: /\.(js|jsx)$/,
           exclude: /(node_modules|bower_components)/,
           loader: 'babel',
           query: {
