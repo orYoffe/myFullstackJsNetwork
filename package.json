@@ -61,7 +61,6 @@
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
-    "autoprefixer-loader": "^3.2.0",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
@@ -79,6 +78,7 @@
     "less-loader": "^2.2.3",
     "mocha": "^2.5.3",
     "node-sass": "^3.8.0",
+    "postcss-loader": "^0.9.1",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",

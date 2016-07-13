@@ -23,7 +23,7 @@ module.exports = {
         {
           test: /\.css$/,
           exclude: /(node_modules|bower_components)/,
-          loader: 'style-loader!css-loader?sourceMap!autoprefixer-loader'
+          loader: 'style-loader!css-loader?sourceMap!postcss-loader'
         },
         {
           test: /\.scss$/,
