@@ -12,6 +12,8 @@ import { configureStore } from './store'
 const initialState = window.__INITIAL_STATE__
 const store = configureStore(browserHistory, initialState, true)
 const history = syncHistoryWithStore(browserHistory, store)
+
+// fixing the favicon to get webpack's result file
 document.getElementById('favicon').href = faviconUrl
 
 render(

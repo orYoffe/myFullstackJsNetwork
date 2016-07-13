@@ -1,15 +1,11 @@
 import React, {Component} from 'react'
-import { Link } from 'react-router'
+import Navbar from './Navbar'
 
 export default (props) => {
   return (
     <div>
-      <Link to="/about">about</Link>
-      <br/>
-      <Link to="/press">about</Link>
-      <br/>
-      <Link to="/">app</Link>
-        {props.children}
+      <Navbar />
+      {props.children}
     </div>
   )
 }

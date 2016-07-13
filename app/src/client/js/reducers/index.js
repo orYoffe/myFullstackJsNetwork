@@ -1,12 +1,13 @@
 import { combineReducers } from 'redux';
 
 
-function reducer(state = {}, action = {}) {
+function anotherReducer(state = {}, action = {}) {
   switch (action.type) {
     default:
       return state;
   }
 }
-import auth from './auth';
-const reducers =  combineReducers({  auth, reducer  })
+import example from './example';
+const reducers =  combineReducers({  example, anotherReducer  })
+
 export default reducers;
